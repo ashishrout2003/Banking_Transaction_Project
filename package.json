@@ -1,0 +1,33 @@
+{
+  "name": "bank_transaction_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon Server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashishrout2003/Bank_Transaction_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ashishrout2003/Bank_Transaction_Project/issues"
+  },
+  "homepage": "https://github.com/ashishrout2003/Bank_Transaction_Project#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.3",
+    "nodemailer": "^8.0.1",
+    "npm": "^11.11.0"
+  }
+}
