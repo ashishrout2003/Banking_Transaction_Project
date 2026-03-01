@@ -45,7 +45,15 @@ async function sendRegistrationEmail(userEmail, name){
     const html = `<p>Hi ${name},</p><p>Thank you for registering with our <b>Banking Transaction App</b>! We're excited to have you on board. If you have any questions or need assistance, feel free to reach out to our support team.</p><p>Best regards,<br/>Banking Transaction Team</p>`;
    await sendEmail(userEmail, subject, text, html);
 }
+async function sendtransactionEmail(userEmail, name, amount, toAccount){
+
+}
+async function sendTransactionFailedEmail(userEmail, name, amount){
+
+}
 
 module.exports = {
-    sendRegistrationEmail
+    sendRegistrationEmail,
+    sendtransactionEmail,
+    sendTransactionFailedEmail
 }
