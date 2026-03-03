@@ -9,16 +9,16 @@ app.use(CookieParser())
  * - Routes Required
  */
 
-const authRouter = require('./Routes/Auth.routes')
-const accountRouter = require('./Routes/Accounts.routes')
-const transactionRouter = require('./Routes/Transaction.routes')
+const authRoutes = require('./Routes/Auth.routes')
+const accountRoutes = require('./Routes/Accounts.routes')
+const transactionRoutes = require('./Routes/Transaction.routes')
 
 /**
  * - Use routes
  */
-app.use('/api/auth', authRouter)
-app.use('/api/accounts', accountRouter)
-app.use('/api/transaction', transactionRouter)
+app.use('/api/auth', authRoutes)
+app.use('/api/accounts', accountRoutes)
+app.use('/api/transactions', transactionRoutes)
 
 
 module.exports = app;

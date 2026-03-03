@@ -46,10 +46,16 @@ async function sendRegistrationEmail(userEmail, name){
    await sendEmail(userEmail, subject, text, html);
 }
 async function sendtransactionEmail(userEmail, name, amount, toAccount){
-
+  const subject = "Transaction Successful";
+  const text = `Hello ${name}, \n\nYour transaction of ${amount} to account ${toAccount} was successful. \n\nBest regards, \nThe Banking Transaction Team`;
+  const html = `<p>Hello ${name},</p><p>Your transaction of ${amount} to account ${toAccount} was successful.</p><p>Best regards, <br>The Banking Transaction Team</p>`;
+await sendEmail(userEmail, subject, text, html)
 }
-async function sendTransactionFailedEmail(userEmail, name, amount){
-
+async function sendTransactionFailedEmail(userEmail, name, amount, toAccout){
+   const subject = "Transaction Successful";
+  const text = `Hello ${name}, \n\nWe regrate to infotm you that your transaction of ${amount} to account ${toAccount} was Failed. \n\nBest regards, \nThe Banking Transaction Team`;
+  const html = `<p>Hello ${name},</p><p>We regrate to inform you that your transaction of ${amount} to account ${toAccount} was Failed.</p><p>Best regards, <br>The Banking Transaction Team</p>`;
+await sendEmail(userEmail, subject, text, html)
 }
 
 module.exports = {
