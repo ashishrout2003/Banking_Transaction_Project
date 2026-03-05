@@ -24,14 +24,14 @@ async function createTransaction(req, res) {
    *  Validate Request
    */
 
-  const { fromAccount, toAccount, amount, idempotenctKey } = req.body;
-  if (!fromAccount || !toAccount || !amount || !idempotenctKey) {
+  const { fromAccount, toAccount, amount, idempotencyKey } = req.body;
+  if (!fromAccount || !toAccount || !amount || !idempotencyKey) {
     return res.status(401).json({
       message: "FromAccount, Toaccount, Amount and IdempotencyKey are required",
     });
   }
 
-  const fromUserAccount = await accountModel.find({
+  const fromUserAccount = await accountModel.findOne({
     _id: fromAccount,
   });
   const toUserAccount = await accountModel.findOne({
@@ -48,7 +48,7 @@ async function createTransaction(req, res) {
    */
 
   const istransactionAlreadyExist = await transactionModel.findOne({
-    idempotencyKey: idempotenctKey,
+    idempotencyKey: idempotencyKey,
   });
   if (istransactionAlreadyExist) {
     if (istransactionAlreadyExist.status === "COMPLETED") {
@@ -94,34 +94,33 @@ async function createTransaction(req, res) {
   const session = await mongoose.startSession();
   session.startTransaction();
 
-  const transaction = await transactionModel.create(
-    {
-      fromAccount,
-      toAccount,
-      amount,
-      idempotencyKey,
-      status: "PENDING",
-    },
-    { session },
-  );
+  const transaction = new transactionModel({
+    fromAccount,
+    toAccount,
+    amount,
+    idempotencyKey,
+    status: "PENDING",
+  });
 
   const debitLedgerEntry = await ledgerModel.create(
-    {
-      account: fromAccount,
-      amount: amount,
-      transaction: transaction._id,
-      type: "DEBIT",
-    },
+    [
+      {
+        account: fromAccount,
+        amount: amount,
+        transaction: transaction._id,
+        type: "DEBIT",
+      },
+    ],
     { session },
   );
 
   const creditLedgerEntry = await ledgerModel.create(
-    {
+    [{
       account: toAccount,
       amount: amount,
       transaction: transaction._id,
       type: "CREDIT",
-    },
+    },],
     { session },
   );
 
@@ -147,8 +146,6 @@ async function createTransaction(req, res) {
 async function createInitialFundTransaction(req, res) {
   const { toAccount, amount, idempotencyKey } = req.body;
   if (!toAccount || !amount || !idempotencyKey) {
-    console.log(toAccount, amount, idempotenctKey);
-
     return res.status(401).json({
       message: "toAccount, amount and idempotencykey are required",
     });
