@@ -163,7 +163,7 @@ async function createInitialFundTransaction(req, res) {
   });
   if (!fromUserAccount) {
     return res.status(401).json({
-      message: "system user account nit found",
+      message: "system user account not found",
     });
   }
   const session = await mongoose.startSession();
